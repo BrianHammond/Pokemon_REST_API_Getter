@@ -10,6 +10,8 @@ except ModuleNotFoundError: # if it's not then it will automatically be installe
     for package in required_packages:
         subprocess.call(['pip', 'install', package])
 
+import requests
+
 base_url = "https://pokeapi.co/api/v2/"
 
 def get_pokemon_info(pokemon_name):
