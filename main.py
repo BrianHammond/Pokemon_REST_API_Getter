@@ -54,4 +54,4 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     UIWindow = UI()
     UIWindow.show()
-    app.exec()
+    sys.exit(app.exec())
