@@ -24,6 +24,14 @@ class UI(QMainWindow):
         
         self.pokemon_name.returnPressed.connect(self.pokemon_get)
 
+        #menubar
+        self.actionAbout.triggered.connect(self.about)
+
+    def about(self):
+        self.window = QMainWindow()
+        uic.loadUi("about.ui", self.window) #load the UI file
+        self.window.show()
+        
     def pokemon_get(self):
 
         os.system("CLS")
