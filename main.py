@@ -2,7 +2,7 @@
 # to install run 'pip install requests'
 
 try: # checks to see if the 'requests' module is installed
-    from PyQt6.QtWidgets import QMainWindow, QApplication
+    from PyQt6.QtWidgets import QMainWindow, QApplication, QTableWidgetItem
     from PyQt6 import uic
 except ModuleNotFoundError: # if it's not then it will automatically be installed
     print("The requests module is not installed")
@@ -12,10 +12,11 @@ except ModuleNotFoundError: # if it's not then it will automatically be installe
         subprocess.call(['pip', 'install', package])
 
 import sys
-from PyQt6.QtWidgets import QMainWindow, QApplication
+from PyQt6.QtWidgets import QMainWindow, QApplication, QTableWidgetItem
 from PyQt6 import uic
 import os
 from api import get_pokemon_info
+
 
 class UI(QMainWindow):
     def __init__(self):
@@ -33,32 +34,41 @@ class UI(QMainWindow):
         self.window.show()
         
     def pokemon_get(self):
-
+        
         os.system("CLS")
               
-        pokemon_name = self.pokemon_name.text()
+        pokemon_info = get_pokemon_info(self.pokemon_name.text())
 
-        get_pokemon_info(pokemon_name)
-                     
-        print(f"Name: {get_pokemon_info(pokemon_name)["name"]}")
-        print(f"Weight: {get_pokemon_info(pokemon_name)["weight"]}")
+        name = pokemon_info["name"]
 
-        for x in range (0,500): # this is used to loop through all the available abilities, i set it to 500 times and will cycle through as much and break out of it
+        self.pokemon_label.setText(name)
+      
+        weight = pokemon_info["weight"]
+        self.table.setItem(0, 0, QTableWidgetItem(str(weight)))
+
+        print(f"Name: {pokemon_info["name"]}")
+        print(f"Weight: {pokemon_info["weight"]}")
+        
+        for row in range (0,500): # this is used to loop through all the available abilities, i set it to 500 times and will cycle through as much and break out of it
             try:
-                get_pokemon_info(pokemon_name)["abilities"][x]["ability"]["name"]
-                print(f"Ability {x+1}: {get_pokemon_info(pokemon_name)["abilities"][x]["ability"]["name"]}")
-                x +=1
+                ability = pokemon_info["abilities"][row]["ability"]["name"]
+                self.table.setItem(row, 1, QTableWidgetItem(ability))
+                print(f"Ability {row+1}: {ability}")
+                row += 1
             except IndexError:
                 break
 
-        for x in range (0,500): # this is used to loop through all the available moves, i set it to 500 times and will cycle through as much and break out of it
+        for row in range (0,500): # this is used to loop through all the available moves, i set it to 500 times and will cycle through as much and break out of it
             try:
-                get_pokemon_info(pokemon_name)["moves"][x]["move"]["name"]
-                print(f"Move {x+1}: {get_pokemon_info(pokemon_name)["moves"][x]["move"]["name"]}")
-                x +=1
+                moves = pokemon_info["moves"][row]["move"]["name"]
+                self.table.setItem(row, 2, QTableWidgetItem(moves))
+                print(f"Move {row+1}: {pokemon_info["moves"][row]["move"]["name"]}")
+                row +=1
             except IndexError:
                 break
         print ("thank you")
+
+        self.pokemon_name.clear()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
