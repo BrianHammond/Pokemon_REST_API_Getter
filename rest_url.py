@@ -1,6 +1,6 @@
 import requests
 
-def get_pokemon_info(pokemon_name):
+def api_request(pokemon_name):
     
     base_url = "https://pokeapi.co/api/v2/"
 
