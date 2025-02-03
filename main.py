@@ -8,6 +8,15 @@ except ModuleNotFoundError: # if it's not then it will automatically be installe
     for package in required_packages:
         subprocess.call(['pip', 'install', package])
 
+try: 
+    import requests  # noqa: F401
+except ModuleNotFoundError: # if it's not then it will automatically be installed
+    print("requests module is not installed")
+    import subprocess
+    required_packages = ['requests']
+    for package in required_packages:
+        subprocess.call(['pip', 'install', package])
+
 import sys
 from PyQt6.QtWidgets import QApplication
 from main_window import MainWindow

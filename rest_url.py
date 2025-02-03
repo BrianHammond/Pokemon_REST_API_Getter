@@ -1,12 +1,3 @@
-try: 
-    import requests
-except ModuleNotFoundError: # if it's not then it will automatically be installed
-    print("requests module is not installed")
-    import subprocess
-    required_packages = ['requests']
-    for package in required_packages:
-        subprocess.call(['pip', 'install', package])
-
 import requests
 
 def api_request(pokemon_name):
