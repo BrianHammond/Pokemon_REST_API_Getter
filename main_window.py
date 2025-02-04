@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QTableWidgetItem
+from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QTableWidgetItem
 from PyQt6 import uic
 import os
 from rest_url import api_request
@@ -63,7 +63,7 @@ class MainWindow(QMainWindow):
         self.pokemon_name.clear()
 
     def about(self):
-        self.window = QWidget()
+        self.window = QDialog()
         uic.loadUi("about.ui", self.window) #load the UI file
         self.window.show()
 
