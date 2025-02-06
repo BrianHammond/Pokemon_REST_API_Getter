@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icon/ms_icon.jpg</normaloff>icon/ms_icon.jpg</iconset>
+    <normaloff>images/ms_icon.jpg</normaloff>images/ms_icon.jpg</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
