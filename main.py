@@ -3,7 +3,7 @@ import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from rest_url import api_request
 from main_ui import Ui_MainWindow as main_ui
-from about_ui import Ui_MainWindow as about_ui
+from about_window import AboutWindow
 
 class MainWindow(QMainWindow, main_ui):
     def __init__(self):
@@ -64,17 +64,12 @@ class MainWindow(QMainWindow, main_ui):
         
         self.pokemon_name.clear()
 
-    def show_about(self):
-        self.about_window = AboutWindow()
-        self.about_window.show()
-
     def about_qt(self):
         QApplication.aboutQt()
 
-class AboutWindow(QMainWindow, about_ui):
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
+    def show_about(self):
+        self.about_window = AboutWindow()
+        self.about_window.show()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv) # needs to run first
