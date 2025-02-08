@@ -19,7 +19,6 @@ class MainWindow(QMainWindow, main_ui):
         self.actionAbout.triggered.connect(self.show_about)
         self.actionAbout_Qt.triggered.connect(self.about_qt)
 
-        
     def pokemon_get(self):
         self.table1.setRowCount(0)
         self.table2.setRowCount(0)
