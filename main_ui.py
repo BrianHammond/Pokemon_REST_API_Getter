@@ -19,14 +19,15 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QApplication, QGroupBox, QHBoxLayout, QHeaderView,
     QLabel, QLayout, QLineEdit, QMainWindow,
     QMenu, QMenuBar, QSizePolicy, QStatusBar,
-    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+    QTabWidget, QTableWidget, QTableWidgetItem, QVBoxLayout,
+    QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(620, 408)
+        MainWindow.resize(827, 529)
         icon = QIcon()
         icon.addFile(u":/images/ms_icon.jpg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -40,11 +41,18 @@ class Ui_MainWindow(object):
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(10, 10, 10, 10)
+        self.tabWidget = QTabWidget(self.centralwidget)
+        self.tabWidget.setObjectName(u"tabWidget")
+        self.tab = QWidget()
+        self.tab.setObjectName(u"tab")
+        self.verticalLayout_3 = QVBoxLayout(self.tab)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setContentsMargins(10, 10, 10, 10)
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
         self.horizontalLayout_2.setContentsMargins(10, 10, 10, 10)
-        self.pokemon_name = QLineEdit(self.centralwidget)
+        self.pokemon_name = QLineEdit(self.tab)
         self.pokemon_name.setObjectName(u"pokemon_name")
         font = QFont()
         font.setFamilies([u"MS Shell Dlg 2"])
@@ -56,9 +64,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.pokemon_name)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_2)
 
-        self.groupBox = QGroupBox(self.centralwidget)
+        self.groupBox = QGroupBox(self.tab)
         self.groupBox.setObjectName(u"groupBox")
         self.verticalLayout_2 = QVBoxLayout(self.groupBox)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -142,12 +150,19 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
 
-        self.verticalLayout.addWidget(self.groupBox)
+        self.verticalLayout_3.addWidget(self.groupBox)
+
+        self.tabWidget.addTab(self.tab, "")
+        self.tab_2 = QWidget()
+        self.tab_2.setObjectName(u"tab_2")
+        self.tabWidget.addTab(self.tab_2, "")
+
+        self.verticalLayout.addWidget(self.tabWidget)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 620, 22))
+        self.menubar.setGeometry(QRect(0, 0, 827, 22))
         self.menuHelp = QMenu(self.menubar)
         self.menuHelp.setObjectName(u"menuHelp")
         MainWindow.setMenuBar(self.menubar)
@@ -160,6 +175,9 @@ class Ui_MainWindow(object):
         self.menuHelp.addAction(self.actionAbout_Qt)
 
         self.retranslateUi(MainWindow)
+
+        self.tabWidget.setCurrentIndex(0)
+
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -174,6 +192,8 @@ class Ui_MainWindow(object):
         self.pokemon_label.setText("")
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Weight:", None))
         self.weight_label.setText("")
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Stats Getter", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Tab 2", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
     # retranslateUi
 

@@ -1,5 +1,6 @@
 import os
 import sys
+import qdarkstyle
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from rest_url import api_request
 from main_ui import Ui_MainWindow as main_ui
@@ -9,7 +10,11 @@ class MainWindow(QMainWindow, main_ui):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        
+
+        #darkstyle
+        self.setStyleSheet(qdarkstyle.load_stylesheet_pyside6())
+
+        #button
         self.pokemon_name.returnPressed.connect(self.pokemon_get)
 
         #menubar
@@ -23,7 +28,7 @@ class MainWindow(QMainWindow, main_ui):
         self.table3.setRowCount(0)
 
         os.system("CLS")
-              
+
         pokemon_info = api_request(self.pokemon_name.text())
 
         name = pokemon_info["name"]
@@ -32,7 +37,7 @@ class MainWindow(QMainWindow, main_ui):
 
         print(f"Name: {pokemon_info["name"]}")
         print(f"Weight: {pokemon_info["weight"]}")
-        
+
         for row in range (0,500): # this is used to loop through all the available moves, i set it to 500 times and will cycle through as much and break out of it
             try:
                 self.table1.setColumnCount(1)
