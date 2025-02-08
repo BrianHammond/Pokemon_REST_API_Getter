@@ -36,6 +36,9 @@ class Ui_MainWindow(object):
         self.actionAbout.setObjectName(u"actionAbout")
         self.actionAbout_Qt = QAction(MainWindow)
         self.actionAbout_Qt.setObjectName(u"actionAbout_Qt")
+        self.actionDark_Mode = QAction(MainWindow)
+        self.actionDark_Mode.setObjectName(u"actionDark_Mode")
+        self.actionDark_Mode.setCheckable(True)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -165,14 +168,18 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QRect(0, 0, 827, 22))
         self.menuHelp = QMenu(self.menubar)
         self.menuHelp.setObjectName(u"menuHelp")
+        self.menuSettings = QMenu(self.menubar)
+        self.menuSettings.setObjectName(u"menuSettings")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.menubar.addAction(self.menuSettings.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.menuHelp.addAction(self.actionAbout)
         self.menuHelp.addAction(self.actionAbout_Qt)
+        self.menuSettings.addAction(self.actionDark_Mode)
 
         self.retranslateUi(MainWindow)
 
@@ -186,6 +193,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Pokemon REST API Getter", None))
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.actionAbout_Qt.setText(QCoreApplication.translate("MainWindow", u"About Qt", None))
+        self.actionDark_Mode.setText(QCoreApplication.translate("MainWindow", u"Dark Mode", None))
         self.pokemon_name.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Enter pokemon name (press enter)", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Stats", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Name:", None))
@@ -195,5 +203,6 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Stats Getter", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Tab 2", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
+        self.menuSettings.setTitle(QCoreApplication.translate("MainWindow", u"Settings", None))
     # retranslateUi
 

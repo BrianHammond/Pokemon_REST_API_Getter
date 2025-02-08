@@ -11,18 +11,16 @@ class MainWindow(QMainWindow, main_ui):
         super().__init__()
         self.setupUi(self)
 
-        #darkstyle
-        self.setStyleSheet(qdarkstyle.load_stylesheet_pyside6())
-
         #button
         self.pokemon_name.returnPressed.connect(self.pokemon_get)
 
         #menubar
+        self.actionDark_Mode.toggled.connect(self.dark_mode)
         self.actionAbout.triggered.connect(self.show_about)
         self.actionAbout_Qt.triggered.connect(self.about_qt)
+
         
     def pokemon_get(self):
-
         self.table1.setRowCount(0)
         self.table2.setRowCount(0)
         self.table3.setRowCount(0)
@@ -68,6 +66,12 @@ class MainWindow(QMainWindow, main_ui):
         print ("thank you")
         
         self.pokemon_name.clear()
+
+    def dark_mode(self, checked):
+        if checked:
+            self.setStyleSheet(qdarkstyle.load_stylesheet_pyside6())
+        else:
+            self.setStyleSheet('')
 
     def about_qt(self):
         QApplication.aboutQt()
