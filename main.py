@@ -15,10 +15,10 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
         self.settings_manager.load_settings()  # Load settings when the app starts
         self.pokemon_api = PokemonAPI() # initialize PokemonAPI class
 
-        #button
+        # button
         self.line_pokemon_character.returnPressed.connect(self.pokemon_get)
 
-        #menubar
+        # menubar
         self.action_dark_mode.toggled.connect(self.dark_mode)
         self.action_about.triggered.connect(self.show_about)
         self.action_about_qt.triggered.connect(self.about_qt)
@@ -36,36 +36,36 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
             print(f"Name: {pokemon_character['name']}")
             print(f"Weight: {pokemon_character['weight']}")
 
-        for row in range (0,500): # this is used to loop through all the available moves, i set it to 500 times and will cycle through as much and break out of it
-            try:
-                self.table1.setColumnCount(1)
-                self.table1.setHorizontalHeaderLabels(['Moves'])
-                self.table1.insertRow(row)
-                moves = pokemon_character["moves"][row]["move"]["name"]
-                self.table1.setItem(row, 0, QTableWidgetItem('  '+moves+'  '))
-                self.table1.resizeColumnsToContents()
-                self.table1.resizeRowsToContents()
-                print(f"Move {row+1}: {pokemon_character["moves"][row]["move"]["name"]}")
-            except IndexError:
-                break
-            except TypeError:
-                break
+            self.table1.setColumnCount(1)
+            self.table1.setHorizontalHeaderLabels(['Moves'])
+            for row in range(len(pokemon_character["moves"])): # this will return the actual number of moves and stop when there are no more moves
+                try:
+                    self.table1.insertRow(row)
+                    moves = pokemon_character["moves"][row]["move"]["name"]
+                    self.table1.setItem(row, 0, QTableWidgetItem('  '+moves+'  '))
+                    self.table1.resizeColumnsToContents()
+                    self.table1.resizeRowsToContents()
+                    print(f"Move {row+1}: {pokemon_character["moves"][row]["move"]["name"]}")
+                except IndexError:
+                    break
+                except TypeError:
+                    break
 
-        for row in range (0,500): # this is used to loop through all the available abilities, i set it to 500 times and will cycle through as much and break out of it
-            try:
-                self.table2.setColumnCount(1)
-                self.table2.setHorizontalHeaderLabels(['Abilities'])
-                self.table2.insertRow(row)
-                ability = pokemon_character["abilities"][row]["ability"]["name"]
-                self.table2.setItem(row, 0, QTableWidgetItem('  '+ability+'  '))
-                self.table2.resizeColumnsToContents()
-                self.table2.resizeRowsToContents()
-                print(f"Ability {row+1}: {ability}")
-            except IndexError:
-                break
-            except TypeError:
-                break
-            
+            self.table2.setColumnCount(1)
+            self.table2.setHorizontalHeaderLabels(['Abilities'])
+            for row in range(len(pokemon_character["abilities"])):
+                try:
+                    self.table2.insertRow(row)
+                    ability = pokemon_character["abilities"][row]["ability"]["name"]
+                    self.table2.setItem(row, 0, QTableWidgetItem('  '+ability+'  '))
+                    self.table2.resizeColumnsToContents()
+                    self.table2.resizeRowsToContents()
+                    print(f"Ability {row+1}: {ability}")
+                except IndexError:
+                    break
+                except TypeError:
+                    break
+                
             weight = pokemon_character["weight"]
             self.label_weight.setText(str(weight))
 
