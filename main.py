@@ -42,7 +42,9 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
                 self.table1.setHorizontalHeaderLabels(['Moves'])
                 self.table1.insertRow(row)
                 moves = pokemon_character["moves"][row]["move"]["name"]
-                self.table1.setItem(row, 0, QTableWidgetItem(moves))
+                self.table1.setItem(row, 0, QTableWidgetItem('  '+moves+'  '))
+                self.table1.resizeColumnsToContents()
+                self.table1.resizeRowsToContents()
                 print(f"Move {row+1}: {pokemon_character["moves"][row]["move"]["name"]}")
             except IndexError:
                 break
@@ -55,7 +57,9 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
                 self.table2.setHorizontalHeaderLabels(['Abilities'])
                 self.table2.insertRow(row)
                 ability = pokemon_character["abilities"][row]["ability"]["name"]
-                self.table2.setItem(row, 0, QTableWidgetItem(ability))
+                self.table2.setItem(row, 0, QTableWidgetItem('  '+ability+'  '))
+                self.table2.resizeColumnsToContents()
+                self.table2.resizeRowsToContents()
                 print(f"Ability {row+1}: {ability}")
             except IndexError:
                 break
