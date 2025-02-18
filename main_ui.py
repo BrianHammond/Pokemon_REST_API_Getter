@@ -219,7 +219,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Stats Getter", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Placeholder for something good to come", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Tab 2", None))
-        self.label_connection.setText(QCoreApplication.translate("MainWindow", u"Not Connected to Pok\u00e9API", None))
+        self.label_connection.setText(QCoreApplication.translate("MainWindow", u"Pok\u00e9API Connection Status Label", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
         self.menuSettings.setTitle(QCoreApplication.translate("MainWindow", u"Settings", None))
     # retranslateUi

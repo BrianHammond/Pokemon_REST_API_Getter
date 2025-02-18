@@ -2,7 +2,7 @@ import sys
 import qdarkstyle
 import requests
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QTableWidgetItem, QMessageBox
-from PySide6.QtCore import QSettings
+from PySide6.QtCore import QSettings, QTimer
 from main_ui import Ui_MainWindow as main_ui
 from about_ui import Ui_Form as about_ui
 
@@ -16,10 +16,12 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
         self.pokemon_api = PokemonAPI() # initialize PokemonAPI class
 
         # Update label_connection based on connection status
-        if self.pokemon_api.is_connected:
-            self.label_connection.setText("Connected to PokéAPI")
-        else:
-            self.label_connection.setText("Failed to connect to PokéAPI")
+        self.update_connection_status()
+
+        # Set up a timer to poll the connection status every 30 seconds
+        self.connection_timer = QTimer(self)
+        self.connection_timer.timeout.connect(self.update_connection_status)
+        self.connection_timer.start(30000)  # 30 seconds in milliseconds
 
         # button
         self.line_pokemon_character.returnPressed.connect(self.pokemon_get)
@@ -28,6 +30,13 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
         self.action_dark_mode.toggled.connect(self.dark_mode)
         self.action_about.triggered.connect(self.show_about)
         self.action_about_qt.triggered.connect(self.about_qt)
+
+    def update_connection_status(self):
+        self.pokemon_api.is_connected = self.pokemon_api.check_connection()
+        if self.pokemon_api.is_connected:
+            self.label_connection.setText("Connected to PokéAPI")
+        else:
+            self.label_connection.setText("Failed to connect to PokéAPI")
 
     def pokemon_get(self):
         self.table1.setRowCount(0)
