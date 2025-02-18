@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(827, 529)
+        MainWindow.resize(749, 465)
         icon = QIcon()
         icon.addFile(u":/images/ms_icon.jpg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -173,10 +173,15 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.tabWidget)
 
+        self.label_connection = QLabel(self.centralwidget)
+        self.label_connection.setObjectName(u"label_connection")
+
+        self.verticalLayout.addWidget(self.label_connection)
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 827, 22))
+        self.menubar.setGeometry(QRect(0, 0, 749, 22))
         self.menuHelp = QMenu(self.menubar)
         self.menuHelp.setObjectName(u"menuHelp")
         self.menuSettings = QMenu(self.menubar)
@@ -206,7 +211,7 @@ class Ui_MainWindow(object):
         self.action_about_qt.setText(QCoreApplication.translate("MainWindow", u"About Qt", None))
         self.action_dark_mode.setText(QCoreApplication.translate("MainWindow", u"Dark Mode", None))
         self.line_pokemon_character.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Pokemon character (press enter)", None))
-        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Stats", None))
+        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Character Stats", None))
         self.label_name.setText(QCoreApplication.translate("MainWindow", u"Character:", None))
         self.label_character.setText("")
         self.label_weight_label.setText(QCoreApplication.translate("MainWindow", u"Weight:", None))
@@ -214,6 +219,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Stats Getter", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Placeholder for something good to come", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Tab 2", None))
+        self.label_connection.setText(QCoreApplication.translate("MainWindow", u"Not Connected to Pok\u00e9API", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))
         self.menuSettings.setTitle(QCoreApplication.translate("MainWindow", u"Settings", None))
     # retranslateUi

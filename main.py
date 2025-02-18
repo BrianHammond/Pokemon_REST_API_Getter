@@ -1,7 +1,7 @@
 import sys
 import qdarkstyle
 import requests
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QTableWidgetItem
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QTableWidgetItem, QMessageBox
 from PySide6.QtCore import QSettings
 from main_ui import Ui_MainWindow as main_ui
 from about_ui import Ui_Form as about_ui
@@ -14,6 +14,12 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
         self.settings_manager = SettingsManager(self)  # Initializes SettingsManager
         self.settings_manager.load_settings()  # Load settings when the app starts
         self.pokemon_api = PokemonAPI() # initialize PokemonAPI class
+
+        # Update label_connection based on connection status
+        if self.pokemon_api.is_connected:
+            self.label_connection.setText("Connected to PokéAPI")
+        else:
+            self.label_connection.setText("Failed to connect to PokéAPI")
 
         # button
         self.line_pokemon_character.returnPressed.connect(self.pokemon_get)
@@ -93,12 +99,22 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
 class PokemonAPI: # Connects to the pokeapi website to get the stats
     def __init__(self):
         self.base_url = "https://pokeapi.co/api/v2/"
+        self.is_connected = self.check_connection()
+
+    def check_connection(self):
+        try:
+            response = requests.get(self.base_url)
+            if response.status_code // 100 == 2: # checks for any 2xx status code
+                return True
+        except requests.RequestException:
+            pass
+        return False
 
     def get_pokemon_data(self, pokemon_character):
         url=f"{self.base_url}pokemon/{pokemon_character}"
 
         response = requests.get(url)
-        if response.status_code == 200:
+        if response.status_code // 100 == 2: # checks for any 2xx status code
             return response.json()
         else:
             print(f"Connection failed with status code {response.status_code}")
