@@ -41,12 +41,17 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
     def pokemon_get(self):
         # Return all characters if the line is empty
         if not self.line_pokemon_character.text().strip():
+            # Clear the table before adding new data
+            self.table1.clear()
+            self.table2.clear()
+            self.table3.clear()
             self.table1.setRowCount(0)
+            self.table1.setColumnCount(0)
             self.table2.setRowCount(0)
+            self.table2.setColumnCount(0)
             self.table3.setRowCount(0)
-            self.table1.horizontalHeader().hide()
-            self.table2.horizontalHeader().hide()
-            self.table3.horizontalHeader().hide()
+            self.table3.setColumnCount(0)
+            
             all_characters = self.pokemon_api.get_pokemon_data('')
             self.table1.setColumnCount(1)
             self.table1.setHorizontalHeaderLabels(['characters'])
@@ -59,12 +64,20 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
 
         # Return a specific character if the line is not empty
         if self.line_pokemon_character.text():  # Only proceed if the API request was successful
+            # Clear the table before adding new data
+            self.table1.clear()
+            self.table2.clear()
+            self.table3.clear()
             self.table1.setRowCount(0)
+            self.table1.setColumnCount(0)
             self.table2.setRowCount(0)
+            self.table2.setColumnCount(0)
             self.table3.setRowCount(0)
-            self.table1.horizontalHeader().hide()
-            self.table2.horizontalHeader().hide()
-            self.table3.horizontalHeader().hide()
+            self.table3.setColumnCount(0)
+
+
+
+
             pokemon_character = self.pokemon_api.get_pokemon_data(self.line_pokemon_character.text())
             name = pokemon_character['name']
             self.label_character.setText(name)
