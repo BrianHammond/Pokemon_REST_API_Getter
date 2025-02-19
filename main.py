@@ -39,28 +39,50 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
             self.label_connection.setText("Failed to connect to PokéAPI")
 
     def pokemon_get(self):
-        self.table1.setRowCount(0)
-        self.table2.setRowCount(0)
-        self.table3.setRowCount(0)
 
-        pokemon_character = self.pokemon_api.get_pokemon_data(self.line_pokemon_character.text())
 
-        if pokemon_character:  # Only proceed if the API request was successful
-            name = pokemon_character["name"]
+        # Return all characters if the line is empty
+        if not self.line_pokemon_character.text().strip():
+            self.table1.setRowCount(0)
+            self.table2.setRowCount(0)
+            self.table3.setRowCount(0)
+            self.table1.horizontalHeader().hide()
+            self.table2.horizontalHeader().hide()
+            self.table3.horizontalHeader().hide()
+            all_characters = self.pokemon_api.get_pokemon_data('')
+            self.table1.setColumnCount(1)
+            self.table1.setHorizontalHeaderLabels(['characters'])
+            for row in range(len(all_characters['results'])):
+                    name = all_characters['results'][row]['name']
+                    self.table1.insertRow(row)
+                    self.table1.setItem(row, 0, QTableWidgetItem(name))
+                    self.table1.resizeColumnsToContents()
+                    self.table1.resizeRowsToContents()
+
+        # Return a specific character if the line is not empty
+        if self.line_pokemon_character.text():  # Only proceed if the API request was successful
+            self.table1.setRowCount(0)
+            self.table2.setRowCount(0)
+            self.table3.setRowCount(0)
+            self.table1.horizontalHeader().hide()
+            self.table2.horizontalHeader().hide()
+            self.table3.horizontalHeader().hide()
+            pokemon_character = self.pokemon_api.get_pokemon_data(self.line_pokemon_character.text())
+            name = pokemon_character['name']
             self.label_character.setText(name)
             print(f"Name: {pokemon_character['name']}")
             print(f"Weight: {pokemon_character['weight']}")
 
             self.table1.setColumnCount(1)
             self.table1.setHorizontalHeaderLabels(['Moves'])
-            for row in range(len(pokemon_character["moves"])): # this will return the actual number of moves and stop when there are no more moves
+            for row in range(len(pokemon_character['moves'])): # this will return the actual number of moves and stop when there are no more moves
                 try:
                     self.table1.insertRow(row)
-                    moves = pokemon_character["moves"][row]["move"]["name"]
+                    moves = pokemon_character['moves'][row]['move']['name']
                     self.table1.setItem(row, 0, QTableWidgetItem('  '+moves+'  '))
                     self.table1.resizeColumnsToContents()
                     self.table1.resizeRowsToContents()
-                    print(f"Move {row+1}: {pokemon_character["moves"][row]["move"]["name"]}")
+                    print(f"Move {row+1}: {pokemon_character['moves'][row]['move']['name']}")
                 except IndexError:
                     break
                 except TypeError:
@@ -68,10 +90,10 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
 
             self.table2.setColumnCount(1)
             self.table2.setHorizontalHeaderLabels(['Abilities'])
-            for row in range(len(pokemon_character["abilities"])):
+            for row in range(len(pokemon_character['abilities'])):
                 try:
                     self.table2.insertRow(row)
-                    ability = pokemon_character["abilities"][row]["ability"]["name"]
+                    ability = pokemon_character['abilities'][row]['ability']['name']
                     self.table2.setItem(row, 0, QTableWidgetItem('  '+ability+'  '))
                     self.table2.resizeColumnsToContents()
                     self.table2.resizeRowsToContents()
@@ -81,7 +103,7 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
                 except TypeError:
                     break
                 
-            weight = pokemon_character["weight"]
+            weight = pokemon_character['weight']
             self.label_weight.setText(str(weight))
 
         print ("thank you")
@@ -107,7 +129,7 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
 
 class PokemonAPI: # Connects to the pokeapi website to get the stats
     def __init__(self):
-        self.base_url = "https://pokeapi.co/api/v2/"
+        self.base_url = 'https://pokeapi.co/api/v2/'
         self.is_connected = self.check_connection()
 
     def check_connection(self):
@@ -120,7 +142,7 @@ class PokemonAPI: # Connects to the pokeapi website to get the stats
         return False
 
     def get_pokemon_data(self, pokemon_character):
-        url=f"{self.base_url}pokemon/{pokemon_character}"
+        url=f'{self.base_url}pokemon/{pokemon_character}/?limit=100000'
 
         response = requests.get(url)
         if response.status_code // 100 == 2: # checks for any 2xx status code

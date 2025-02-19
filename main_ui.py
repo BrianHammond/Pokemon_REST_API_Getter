@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(749, 465)
+        MainWindow.resize(929, 465)
         icon = QIcon()
         icon.addFile(u":/images/ms_icon.jpg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -181,7 +181,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 749, 22))
+        self.menubar.setGeometry(QRect(0, 0, 929, 22))
         self.menuHelp = QMenu(self.menubar)
         self.menuHelp.setObjectName(u"menuHelp")
         self.menuSettings = QMenu(self.menubar)
@@ -210,7 +210,7 @@ class Ui_MainWindow(object):
         self.action_about.setText(QCoreApplication.translate("MainWindow", u"About", None))
         self.action_about_qt.setText(QCoreApplication.translate("MainWindow", u"About Qt", None))
         self.action_dark_mode.setText(QCoreApplication.translate("MainWindow", u"Dark Mode", None))
-        self.line_pokemon_character.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Pokemon character (press enter)", None))
+        self.line_pokemon_character.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Pokemon character (press enter) You can leave this blank to return all, it will become unresponsive so just wait", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Character Stats", None))
         self.label_name.setText(QCoreApplication.translate("MainWindow", u"Character:", None))
         self.label_character.setText("")
