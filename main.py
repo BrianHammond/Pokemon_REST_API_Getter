@@ -39,8 +39,6 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
             self.label_connection.setText("Failed to connect to PokéAPI")
 
     def pokemon_get(self):
-
-
         # Return all characters if the line is empty
         if not self.line_pokemon_character.text().strip():
             self.table1.setRowCount(0)
