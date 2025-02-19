@@ -52,8 +52,9 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
             self.table3.setRowCount(0)
             self.table3.setColumnCount(0)
 
-            self.label_character.setText("All Characters")
+            self.label_character.setText("Fetching all characters...please wait")
             self.label_weight.setText("")
+            QApplication.processEvents() # processes all pending events before continuing
             
             all_characters = self.pokemon_api.get_pokemon_data('')
             self.table1.setColumnCount(1)
@@ -64,6 +65,7 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
                     self.table1.setItem(row, 0, QTableWidgetItem(name))
                     self.table1.resizeColumnsToContents()
                     self.table1.resizeRowsToContents()
+            self.label_character.setText("All Characters")
 
         # Return a specific character if the line is not empty
         if self.line_pokemon_character.text():  # Only proceed if the API request was successful
