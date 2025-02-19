@@ -51,6 +51,9 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
             self.table2.setColumnCount(0)
             self.table3.setRowCount(0)
             self.table3.setColumnCount(0)
+
+            self.label_character.setText("All Characters")
+            self.label_weight.setText("")
             
             all_characters = self.pokemon_api.get_pokemon_data('')
             self.table1.setColumnCount(1)
@@ -74,9 +77,6 @@ class MainWindow(QMainWindow, main_ui): # used to display the main user interfac
             self.table2.setColumnCount(0)
             self.table3.setRowCount(0)
             self.table3.setColumnCount(0)
-
-
-
 
             pokemon_character = self.pokemon_api.get_pokemon_data(self.line_pokemon_character.text())
             name = pokemon_character['name']
